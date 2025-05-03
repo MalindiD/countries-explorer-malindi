@@ -22,7 +22,6 @@ const Home = () => {
       try {
         let res;
 
-        // Fetch countries based on search or region
         if (searchTerm) {
           res = await getCountryByName(searchTerm);
         } else if (selectedRegion) {
@@ -31,7 +30,6 @@ const Home = () => {
           res = await getAllCountries();
         }
 
-        // Filter by language if needed
         let filteredCountries = res.data;
 
         if (selectedLanguage) {
