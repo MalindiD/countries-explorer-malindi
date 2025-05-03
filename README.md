@@ -33,8 +33,8 @@ npm test
 
 5. Hardcoded Credentials for Login
 
-Email: admin@example.com
-Password: admin123
+Email: malindi@gmail.com
+Password: malindi123
 
 ### API Used
 
