@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const USER_CREDENTIALS = {
-  email: "admin@example.com",
-  password: "admin123",
+  email: "malindi@gmail.com",
+  password: "malindi123",
 };
 
 const Login = () => {

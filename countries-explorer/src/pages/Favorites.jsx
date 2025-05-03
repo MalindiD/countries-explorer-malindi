@@ -1,4 +1,3 @@
-// src/pages/Favorites.jsx
 import React, { useEffect, useState } from "react";
 import CountryCard from "../components/CountryCard";
 

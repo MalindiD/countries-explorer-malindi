@@ -11,7 +11,6 @@ import LanguageFilter from "../components/LanguageFilter";
 import CountryDetailModal from "../components/CountryDetailModal";
 import { getLoggedInUser } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
