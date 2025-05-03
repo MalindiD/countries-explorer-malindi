@@ -22,13 +22,7 @@ const Home = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [allRegions, setAllRegions] = useState([]);
   const [allLanguages, setAllLanguages] = useState([]);
-
-
-  useEffect(() => {
-    if (!getLoggedInUser()) {
-      navigate("/login");
-    }
-  }, []);
+  const [favorites, setFavorites] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -82,6 +76,30 @@ const Home = () => {
     fetchData();
   }, [searchTerm, selectedRegion, selectedLanguage]);
 
+  useEffect(() => {
+    const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(storedFavs);
+  }, []);
+  
+
+  const handleCountryClick = (country) => {
+    if (!getLoggedInUser()) {
+      navigate("/login");
+      return;
+    }
+    setSelectedCountry(country);
+  };
+
+  const toggleFavorite = (country) => {
+    const isFav = favorites.some(fav => fav.cca3 === country.cca3);
+    const updatedFavs = isFav
+      ? favorites.filter(fav => fav.cca3 !== country.cca3)
+      : [...favorites, country];
+  
+    setFavorites(updatedFavs);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavs));
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold text-center mb-8 text-blue-700">
@@ -110,7 +128,9 @@ const Home = () => {
             <CountryCard
               key={country.cca3}
               country={country}
-              onClick={setSelectedCountry}
+              onClick={handleCountryClick}
+              isFavorite={favorites.some(fav => fav.cca3 === country.cca3)}
+              toggleFavorite={toggleFavorite}
             />
           ))
         ) : (
