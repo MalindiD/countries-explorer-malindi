@@ -9,8 +9,12 @@ import SearchBar from "../components/SearchBar";
 import FilterMenu from "../components/FilterMenu";
 import LanguageFilter from "../components/LanguageFilter";
 import CountryDetailModal from "../components/CountryDetailModal";
+import { getLoggedInUser } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -20,6 +24,12 @@ const Home = () => {
   const [allLanguages, setAllLanguages] = useState([]);
 
 
+  useEffect(() => {
+    if (!getLoggedInUser()) {
+      navigate("/login");
+    }
+  }, []);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
