@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4 bg-gray-100 shadow-sm">
+    <div style={{ backgroundColor: "#4F0341" }} className="flex justify-between items-center p-4 shadow-sm text-white">
       <button
         onClick={() => navigate("/")}
         className="text-3xl font-serif italic tracking-wide text-left"
@@ -23,16 +23,17 @@ const Header = () => {
 
       {user ? (
         <div className="flex items-center gap-4">
+          <span className="text-sm text-white">Hello, {user}</span>
           <button
             onClick={() => navigate("/favorites")}
-            className="flex items-center bg-pink-500 text-white px-3 py-1 rounded"
+            className="border border-white text-white px-4 py-2 rounded hover:bg-[#6C648B] hover:text-black transition"
           >
             <AiFillHeart className="mr-1" /> 
           </button>
-          <span className="text-sm text-gray-700">Hello, {user}</span>
+          
           <button
             onClick={handleLogout}
-            className="bg-red-500 text-white px-3 py-1 rounded"
+            className="border border-white text-white px-4 py-2 rounded hover:bg-[#6C648B] hover:text-black transition"
           >
             Logout
           </button>
@@ -40,7 +41,7 @@ const Header = () => {
       ) : (
         <button
           onClick={() => navigate("/login")}
-          className="bg-green-500 text-white px-3 py-1 rounded"
+          className="border border-white text-white px-4 py-2 rounded hover:bg-[#6C648B] hover:text-black transition"
         >
           Login
         </button>

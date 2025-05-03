@@ -7,7 +7,8 @@ const CountryCard = ({ country, onClick, isFavorite, toggleFavorite }) => {
 
   return (
     <div
-      className="relative bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-all cursor-pointer"
+    style={{ backgroundColor: "#ebe8ed" }}
+      className="relative rounded-xl shadow-md p-4 hover:shadow-xl transition-all cursor-pointer"
       onClick={() => onClick(country)}
     >
       <img
