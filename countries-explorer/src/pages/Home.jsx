@@ -16,6 +16,9 @@ const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [allRegions, setAllRegions] = useState([]);
+  const [allLanguages, setAllLanguages] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +34,22 @@ const Home = () => {
         }
 
         let filteredCountries = res.data;
+
+        // Dynamic languages
+    const langsSet = new Set();
+    const regionSet = new Set();
+
+    res.data.forEach((country) => {
+      if (country.languages) {
+        Object.values(country.languages).forEach((lang) => langsSet.add(lang));
+      }
+      if (country.region) {
+        regionSet.add(country.region);
+      }
+    });
+
+    setAllLanguages(Array.from(langsSet).sort());
+    setAllRegions(Array.from(regionSet).sort());
 
         if (selectedLanguage) {
           filteredCountries = filteredCountries.filter((country) => {
@@ -55,14 +74,25 @@ const Home = () => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <FilterMenu selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion} />
-        <LanguageFilter
-          selectedLanguage={selectedLanguage}
-          setSelectedLanguage={setSelectedLanguage}
-        />
-      </div>
+      <h1 className="text-3xl font-bold text-center mb-8 text-blue-700">
+  🌍 Explore Countries of the World
+</h1>
+
+<div className="flex flex-col md:flex-row md:items-center gap-4 justify-center">
+    <div className="md:w-1/3 w-full">
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    </div>
+    <FilterMenu
+      selectedRegion={selectedRegion}
+      setSelectedRegion={setSelectedRegion}
+      regionOptions={allRegions}
+    />
+    <LanguageFilter
+      selectedLanguage={selectedLanguage}
+      setSelectedLanguage={setSelectedLanguage}
+      languageOptions={allLanguages}
+    />
+  </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {countries.length > 0 ? (

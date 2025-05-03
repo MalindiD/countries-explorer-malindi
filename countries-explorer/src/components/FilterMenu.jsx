@@ -1,21 +1,26 @@
 import React from "react";
+import Select from "react-select";
 
-const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+const FilterMenu = ({ selectedRegion, setSelectedRegion, regionOptions }) => {
+  const options = regionOptions.map((region) => ({
+    value: region,
+    label: region,
+  }));
 
-const FilterMenu = ({ selectedRegion, setSelectedRegion }) => {
+  const handleChange = (selectedOption) => {
+    setSelectedRegion(selectedOption ? selectedOption.value : "");
+  };
+
   return (
-    <select
-      className="p-2 border rounded shadow-sm mb-4"
-      value={selectedRegion}
-      onChange={(e) => setSelectedRegion(e.target.value)}
-    >
-      <option value="">Filter by Region</option>
-      {regions.map((region) => (
-        <option key={region} value={region}>
-          {region}
-        </option>
-      ))}
-    </select>
+    <div className="mb-4 w-full md:w-60">
+      <Select
+        options={options}
+        value={selectedRegion ? { value: selectedRegion, label: selectedRegion } : null}
+        onChange={handleChange}
+        isClearable
+        placeholder="Filter by Region"
+      />
+    </div>
   );
 };
 
