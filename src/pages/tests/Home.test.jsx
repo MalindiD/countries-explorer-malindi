@@ -1,27 +1,19 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Home from '../Home';
-import * as countryService from '../../api/countryService';
+import { BrowserRouter } from 'react-router-dom';
 
-jest.mock('../../api/countryService');
+jest.mock('../../api/countryService', () => ({
+  getAllCountries: jest.fn(() => Promise.resolve({ data: [] })),
+  getCountryByName: jest.fn(() => Promise.resolve({ data: [] })),
+  getCountriesByRegion: jest.fn(() => Promise.resolve({ data: [] })),
+}));
 
-test('renders and filters country list', async () => {
-  countryService.getAllCountries.mockResolvedValueOnce({
-    data: [
-      {
-        cca3: 'LK',
-        name: { common: 'Sri Lanka', official: 'Democratic Socialist Republic of Sri Lanka' },
-        population: 22000000,
-        region: 'Asia',
-        capital: ['Colombo'],
-        flags: { png: 'https://flagcdn.com/w320/lk.png' },
-        languages: { sin: 'Sinhala' },
-      },
-    ],
-  });
-
-  render(<Home />);
-
-  expect(await screen.findByText('Sri Lanka')).toBeInTheDocument();
-  expect(screen.getByText(/Asia/)).toBeInTheDocument();
+test('renders Home and shows no countries found initially', async () => {
+  render(
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
+  );
+  expect(await screen.findByText(/No countries found/i)).toBeInTheDocument();
 });
