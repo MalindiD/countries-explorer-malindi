@@ -24,6 +24,7 @@ const Home = () => {
   const [favorites, setFavorites] = useState([]);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
+  // Fetch data from REST Countries API when filters change
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -122,7 +123,7 @@ const Home = () => {
           languageOptions={allLanguages}
         />
       </div>
-
+      {/* Display country cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {countries.length > 0 ? (
           countries.map((country) => (
@@ -138,7 +139,7 @@ const Home = () => {
           <p>No countries found.</p>
         )}
       </div>
-
+      {/* Country modal popup */}
       {selectedCountry && (
         <CountryDetailModal
           country={selectedCountry}

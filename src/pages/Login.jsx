@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Hardcoded valid credentials for login simulation
 const USER_CREDENTIALS = {
   email: "malindi@gmail.com",
   password: "malindi123",
@@ -11,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+// Redirect user to homepage if already logged in
   useEffect(() => {
     const loggedInUser = localStorage.getItem("loggedInUser");
     if (loggedInUser) navigate("/");
@@ -19,7 +20,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
+    // Check if entered credentials match the hardcoded ones
     if (
       email === USER_CREDENTIALS.email &&
       password === USER_CREDENTIALS.password
